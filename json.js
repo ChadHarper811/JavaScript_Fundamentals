@@ -1,5 +1,5 @@
 // Javascript Object
-let emplyoee = {
+let employee = {
     firstName: "Chad",
     lastName: "Harper",
     birthday: new Date("January 1, 1982"),
@@ -11,9 +11,9 @@ let emplyoee = {
 };
 
 // convert to JSON String
-let jsonValue = JSON.stringify(emplyoee);
+let jsonValue = JSON.stringify(employee);
 console.log(jsonValue);
-jsonValue = JSON.stringify(emplyoee, null, 2);
+jsonValue = JSON.stringify(employee, null, 2);
 console.log(jsonValue);
 
 // Convert Value Back to Object
