@@ -13,3 +13,9 @@ let emplyoee = {
 // convert to JSON String
 let jsonValue = JSON.stringify(emplyoee);
 console.log(jsonValue);
+jsonValue = JSON.stringify(emplyoee, null, 2);
+console.log(jsonValue);
+
+// Convert Value Back to Object
+let newEmployee = JSON.parse(jsonValue);
+console.log(newEmployee)
