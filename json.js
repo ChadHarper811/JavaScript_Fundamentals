@@ -19,3 +19,13 @@ console.log(jsonValue);
 // Convert Value Back to Object
 let newEmployee = JSON.parse(jsonValue);
 console.log(newEmployee)
+
+// Writing JSON Directly
+let jsonString = `{
+"firstName": "Elizabeth",
+"lastName": "Jones"
+}`;
+let obj = JSON.parse(jsonString);
+console.log(obj);
+
+// 
