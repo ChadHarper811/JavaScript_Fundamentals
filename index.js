@@ -32,28 +32,14 @@ const isBooleanInputValid = function (input) {
   return (input === "yes" || input === "no");
 }
 
-const isStartYearValid = function (input) {
-  let numValue = Number(input);
-  if (!Number.isInteger(numValue) || numValue < 1990 || numValue > 2023) {
-    return false;
+const isIntegerValid = (min, max) => {
+  return (input) => {
+    let numValue = Number(input);
+    if (!Number.isInteger(numValue) || numValue < min || numValue > max) {
+      return false;
+    }
+    return true;
   }
-  return true;
-}
-
-const isStartMonthValid = function (input) {
-  let numValue = Number(input);
-  if (!Number.isInteger(numValue) || numValue < 1 || numValue > 12) {
-    return false;
-  }
-  return true;
-}
-
-const isStartDayValid = function (input) {
-  let numValue = Number(input);
-  if (!Number.isInteger(numValue) || numValue < 1 || numValue > 31) {
-    return false;
-  }
-  return true;
 }
 
 // Application Commands ------------------------------------------------------------
@@ -89,9 +75,9 @@ function addEmployee() {
 
   employee.firstName = getInput('First Name: ', isStringInputValid);
   employee.lastName = getInput('Last Name: ', isStringInputValid);
-  let startDateYear = getInput('Employee Start Year (1990-2023): ', isStartYearValid);
-  let startDateMonth = getInput('Employee Start Date Month (1-12): ', isStartMonthValid);
-  let startDateDay = getInput('Employee Start Date Day (1-31): ', isStartDayValid);
+  let startDateYear = getInput('Employee Start Year (1990-2023): ', isIntegerValid(1990, 2023));
+  let startDateMonth = getInput('Employee Start Date Month (1-12): ', isIntegerValid(1, 12));
+  let startDateDay = getInput('Employee Start Date Day (1-31): ', isIntegerValid(1, 31));
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
   employee.isActive = getInput('Is Employee Active (yes or no): ', isBooleanInputValid, i => (i === "yes"));
 
