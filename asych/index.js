@@ -11,7 +11,7 @@ const loadData = async () => {
   try {
     const fileData = await fs.readFile('./data1.json');
     employees = JSON.parse(fileData);
-  } catch(err) {
+  } catch (err) {
     console.error("Cannot load in employees");
     throw err;
   }
@@ -21,7 +21,7 @@ const writeData = async () => {
   console.log("Writing employees......");
   try {
     await fs.readFile('./data1.json', JSON.stringify(employees, null, 2));
-  } catch(err) {
+  } catch (err) {
     console.error("Cannot write employees data.");
     throw err;
   }
@@ -42,7 +42,7 @@ function getInput(promptText, validator, transformer) {
     console.error(`--Invalid input`);
     return getInput(promptText, validator, transformer);
   }
-  if(transformer) {
+  if (transformer) {
     return transformer(value);
   }
   return value;
@@ -100,9 +100,9 @@ function addEmployee() {
 
 // Search for employees by id
 function searchById() {
- const id = getInput("Employee ID: ", null, Number);
- const result = employees.find(e => e.id === id);
- if (result) {
+  const id = getInput("Employee ID: ", null, Number);
+  const result = employees.find(e => e.id === id);
+  if (result) {
     console.log("");
     logEmployee(result);
   } else {
@@ -132,32 +132,43 @@ function searchByName() {
 
 // Application execution -------------------------------------------------
 
-// Get the command the user wants to exexcute
-const command = process.argv[2].toLowerCase();
 
-switch (command) {
 
-  case 'list':
-    listEmployees();
-    break;
+const main = () => {
 
-  case 'add':
-    addEmployee();
-    break;
+  // Get the command the user wants to exexcute
+  const command = process.argv[2].toLowerCase();
 
-  case 'search-by-id':
-    searchById();
-    break;
+  switch (command) {
 
-  case 'search-by-name':
-    searchByName();
-    break;
+    case 'list':
+      listEmployees();
+      break;
 
-  default:
-    console.log('Unsupported command. Exiting...');
-    process.exit(1);
+    case 'add':
+      addEmployee();
+      break;
 
+    case 'search-by-id':
+      searchById();
+      break;
+
+    case 'search-by-name':
+      searchByName();
+      break;
+
+    default:
+      console.log('Unsupported command. Exiting...');
+      process.exit(1);
+
+  }
 }
 
+loadData()
+  .then(main)
+  .catch((err) => {
+    console.error("Cannot complete starup.");
+    throw err;
+  });
 
 
