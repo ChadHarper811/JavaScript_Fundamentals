@@ -151,7 +151,7 @@ const main = () => {
       break;
 
     case 'add':
-      addEmployee();
+       addEmployee();
       break;
 
     case 'search-by-id':
