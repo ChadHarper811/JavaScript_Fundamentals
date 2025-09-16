@@ -86,7 +86,7 @@ function listEmployees() {
   console.log(`Employee list completed`);
 }
 
-function addEmployee() {
+async function addEmployee() {
   console.log(`Add Employee -----------------------------`);
   console.log('');
   let employee = {};
@@ -99,9 +99,8 @@ function addEmployee() {
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
   employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
 
-  // Output Employee JSON
-  const json = JSON.stringify(employee, null, 2);
-  console.log(`Employee: ${json}`);
+  employees.push(employee);
+  await writeData();
 }
 
 // Search for employees by id
