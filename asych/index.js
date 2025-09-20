@@ -60,8 +60,12 @@ let prompt = createPrompt();
 
 const logEmployee = (employee) => {
   Object.entries(employee).forEach(entry => {
+    if(entry[0] !== "salaryUSD" || entry[0] !== "localCurrency") {
     console.log(`${entry[0]}: ${entry[1]}`);
+    }
   });
+  console.log(`Salary USD: ${getSalary(employee.salaryUSD, "USD")}`);
+  console.log(`Local Salary: ${getSalary(employee.salaryUSD, employee.localCurrency)}`);
 }
 
 function getInput(promptText, validator, transformer) {
