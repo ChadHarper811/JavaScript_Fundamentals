@@ -73,7 +73,10 @@ const getNextEmployeeID = () => {
 
 // Validator functions ---------------------------------------------------
 
-
+const isCurrencyCodeValid = function (code) {
+  const currencyCodes = Object.keys(currencyData.rates);
+  return (currencyCodes,indexOf(code) > -1);
+}
 
 const isStringInputValid = (input) => {
   return (input) ? true : false;
