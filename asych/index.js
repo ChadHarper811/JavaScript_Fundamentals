@@ -131,6 +131,8 @@ async function addEmployee() {
   let startDateDay = getInput("Employee Start Date Day (1-31): ", isIntegerValid(1, 31));
   employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
   employee.isActive = getInput("Is employee active (yes or no): ", isBooleanInputValid, i => (i === "yes"));
+  employee.salaryUSD = getInput("Annual salary in USD: ", isIntegerValid(10000, 1000000));
+  employee.localCurrency = getInput("Local currency (3 letter code): ", isCurrencyCodeValid);
 
   employees.push(employee);
   await writeData();
