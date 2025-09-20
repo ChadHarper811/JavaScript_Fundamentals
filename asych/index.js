@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { format } from 'node:path';
 
 // Global variables ----------------------------------------------------------------
 
@@ -20,6 +21,15 @@ const getCurrencyConversionData = async () => {
     throw new Error("Cannot fetch curreny data.");
   }
   currencyData = await response.json();
+}
+
+const getSalary = (amountUSD, currency) => {
+  const amount = (curreny === "USD") ? amountUSD : amountUSD * currencyData.rates[currency];
+  const formatter = Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency
+  });
+  return formatter.format(amount);
 }
 
 // Loading and writing data to the filesystem --------------------------------------
@@ -75,7 +85,7 @@ const getNextEmployeeID = () => {
 
 const isCurrencyCodeValid = function (code) {
   const currencyCodes = Object.keys(currencyData.rates);
-  return (currencyCodes,indexOf(code) > -1);
+  return (currencyCodes.indexOf(code) > -1);
 }
 
 const isStringInputValid = (input) => {
