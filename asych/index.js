@@ -4,7 +4,7 @@ import { format } from 'node:path';
 // Global variables ----------------------------------------------------------------
 
 let employees = [];
-let currencyData:
+let currencyData;
 
 // Currency Data -------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ const getCurrencyConversionData = async () => {
     redirect: 'follow',
     headers
   };
-  const response = await fetch("https://api.exchangeratesapi.io/v1/latest?", options);
+  const response = await fetch("https://api.exchangeratesapi.io/v1/latest?access_key=b4cf58735baebc157e7d24a2b8bd3cc1", options);
   if(!response.ok) {
     throw new Error("Cannot fetch curreny data.");
   }
@@ -24,7 +24,7 @@ const getCurrencyConversionData = async () => {
 }
 
 const getSalary = (amountUSD, currency) => {
-  const amount = (curreny === "USD") ? amountUSD : amountUSD * currencyData.rates[currency];
+  const amount = (currency === "USD") ? amountUSD : amountUSD * currencyData.rates[currency];
   const formatter = Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency
@@ -48,7 +48,7 @@ const loadData = async () => {
 const writeData = async () => {
   console.log("Writing employees......");
   try {
-    await fs.readFile('./data1.json', JSON.stringify(employees, null, 2));
+    await fs.writeFile('./data1.json', JSON.stringify(employees, null, 2));
   } catch (err) {
     console.error("Cannot write employees data.");
     throw err;
@@ -209,6 +209,7 @@ const main = () => {
 }
 
 loadData()
+.then(getCurrencyConversionData)
   .then(main)
   .catch((err) => {
     console.error("Cannot complete starup.");
