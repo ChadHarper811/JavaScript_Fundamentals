@@ -1,8 +1,6 @@
 // NOTE: You must insert your API key on Line 15 for this script to work as intended
 // Get a free API Key here: https://exchangeratesapi.io/
 
-import fs from 'node:fs/promises';
-
 // Global variables ------------------------------------------------------
 
 let employees = [];
@@ -32,29 +30,6 @@ const getSalary = (amountUSD, currency) => {
     currency: currency
   });
   return formatter.format(amount);
-}
-
-// Loading and writing data to the filesystem ----------------------------
-
-const loadData = async () => {
-  console.log("Loading employees.....");
-  try {
-    const fileData = await fs.readFile('./data.json');
-    employees = JSON.parse(fileData);
-  } catch (err) {
-    console.error("Cannot load in employees");
-    throw err;
-  }
-}
-
-const writeData = async () => {
-  console.log("Writing employees.....");
-  try {
-    await fs.writeFile('./data.json', JSON.stringify(employees, null, 2));
-  } catch (err) {
-    console.error("Cannot write employees data.");
-    throw err;
-  }
 }
 
 import createPrompt from 'prompt-sync';
