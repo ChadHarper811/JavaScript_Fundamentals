@@ -18,8 +18,8 @@ const logEmployee = (employee) => {
       console.log(`${entry[0]}: ${entry[1]}`);
     }
   });
-  console.log(`Salary USD: ${getSalary(employee.salaryUSD, "USD")}`);
-  console.log(`Local Salary: ${getSalary(employee.salaryUSD, employee.localCurrency)}`);
+  console.log(`Salary USD: ${getSalary(employee.salaryUSD, "USD", currencyData)}`);
+  console.log(`Local Salary: ${getSalary(employee.salaryUSD, employee.localCurrency, currencyData)}`);
 }
 
 function getInput(promptText, validator, transformer) {
@@ -93,7 +93,7 @@ async function addEmployee() {
   employee.localCurrency = getInput("Local currency (3 letter code): ", isCurrencyCodeValid);
 
   employees.push(employee);
-  await writeData();
+  await writeData(employees);
 }
 
 // Search for employees by id
@@ -161,7 +161,11 @@ const main = async () => {
 }
 
 Promise.all([ loadData(), getCurrencyConversionData() ])
-  .then(main)
+  .then(results => {
+    employees = results[0];
+    currencyData = results[1];
+    return main();
+  })
   .catch((err) => {
     console.error("Cannot complete startup.");
     throw err;
