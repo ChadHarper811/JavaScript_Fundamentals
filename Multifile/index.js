@@ -1,6 +1,9 @@
 // NOTE: You must insert your API key on Line 15 for this script to work as intended
 // Get a free API Key here: https://exchangeratesapi.io/
 
+import { loadData, writeData } from './data.js';
+import { getCurrencyConversionData, getSalary } from './currency.js';
+
 // Global variables ------------------------------------------------------
 
 let employees = [];
